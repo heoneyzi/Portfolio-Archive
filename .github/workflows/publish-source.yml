@@ -53,6 +53,7 @@ jobs:
           subprocess.run(['git','config','user.name','github-actions[bot]'],check=True)
           subprocess.run(['git','config','user.email','41898282+github-actions[bot]@users.noreply.github.com'],check=True)
           subprocess.run(['git','add','-A'],check=True)
+          subprocess.run(['git','add','-f','--',*m['files']],check=True)
           if subprocess.run(['git','diff','--cached','--quiet']).returncode:
               subprocess.run(['git','commit','-m','Publish reviewed source files and experiment documentation'],check=True)
               subprocess.run(['git','push','origin','HEAD:main'],check=True)
