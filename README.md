@@ -3,13 +3,13 @@
 **Current work: [Medical](https://github.com/heoneyzi/Medical) · [Paper](https://github.com/heoneyzi/Paper) · [Study](https://github.com/heoneyzi/Study) · [Deep_Daiv](https://github.com/heoneyzi/Deep_Daiv)**
 Visit [the research website](https://heoneyzi.github.io/) for the project stories and current CV.
 
-2026년 9월 28일 새 포트폴리오로 통합하기 직전의 공개 저장소를 한곳에 모았습니다. `originals/`에는 각 저장소의 당시 파일을 수정 없이 보존했습니다. README·코드의 Git blob 해시를 원본 커밋과 대조했으며, 원래의 Git 이력은 각 기존 저장소에 남아 있습니다.
+2026년 9월 28일 새 포트폴리오로 통합하기 직전의 공개 저장소를 한곳에 모았습니다. `originals/`에는 각 저장소의 당시 파일을 보존하되, 이전 홈페이지의 CV와 전화번호는 공개본과 Git 기록에서 제거했습니다. 개인정보 정리 대상 이외의 README·코드는 원본 커밋과 대조했습니다.
 
-This is a historical snapshot, not a claim that every archived experiment is complete or current. Original author credits and licenses are retained. Files here are preserved as they were, so historical dates and project descriptions may differ from the current portfolio.
+This is a historical snapshot, not a claim that every archived experiment is complete or current. Original author credits and licenses are retained. Apart from the documented privacy cleanup of the previous homepage, files are preserved as they were; historical dates and descriptions may differ from the current portfolio.
 
 | Repository | Preserved files | Original commit | Download |
 |---|---|---|---|
-| heoneyzi.github.io | [Browse](originals/heoneyzi.github.io/) · 11 files | [51c5092](https://github.com/heoneyzi/heoneyzi.github.io/commit/51c50923d7e0623bd04d55a22d34ef77014dc68a) | [ZIP](https://github.com/heoneyzi/heoneyzi.github.io/archive/51c50923d7e0623bd04d55a22d34ef77014dc68a.zip) |
+| heoneyzi.github.io | [Browse](originals/heoneyzi.github.io/) · 10 files | Privacy-cleaned snapshot | [Current public CV](https://heoneyzi.github.io/Jiheon_Kang_CV.pdf) |
 | PhenoFocus | [Browse](originals/PhenoFocus/) · 2 files | [c52fcb5](https://github.com/heoneyzi/PhenoFocus/commit/c52fcb56d3b422d7512c59f427fa2e9ed234076a) | [ZIP](https://github.com/heoneyzi/PhenoFocus/archive/c52fcb56d3b422d7512c59f427fa2e9ed234076a.zip) |
 | Virtual-Cell-Challenge-2026 | [Browse](originals/Virtual-Cell-Challenge-2026/) · 2 files | [cce73e0](https://github.com/heoneyzi/Virtual-Cell-Challenge-2026/commit/cce73e0fc1f0d3f9e9509adbafb70463e1ed9012) | [ZIP](https://github.com/heoneyzi/Virtual-Cell-Challenge-2026/archive/cce73e0fc1f0d3f9e9509adbafb70463e1ed9012.zip) |
 | BU-Net_Pytorch_Implementation | [Browse](originals/BU-Net_Pytorch_Implementation/) · 19 files | [4e5ab43](https://github.com/heoneyzi/BU-Net_Pytorch_Implementation/commit/4e5ab43acc76d64b133b677b96bb42825df693fe) | [ZIP](https://github.com/heoneyzi/BU-Net_Pytorch_Implementation/archive/4e5ab43acc76d64b133b677b96bb42825df693fe.zip) |
@@ -25,7 +25,7 @@ This is a historical snapshot, not a claim that every archived experiment is com
 
 ## Preservation notes
 
-- The 12 compact repositories are copied byte for byte under `originals/` (including the previous homepage and profile README).
+- The 12 compact repositories are preserved under `originals/`. The previous homepage omits its private CV and phone contact; its CV link opens the current public web CV. Other source files retain their original contents.
 - TDiG contains approximately 1.08 GB of files. Its exact commit and ZIP are linked above instead of duplicating those large files. Its file inventory is preserved in `inventories/TDiG.json`.
-- This archive does not include private repositories. The existing public repository URLs and their commit histories are retained.
-- `manifest.json` records the source commit, byte count, file count and fork status for every repository. This snapshot captures the published versions, not uncommitted local drafts.
+- This archive does not include private repositories. Public repository URLs are retained. Histories containing private contact information have been rewritten.
+- `manifest.json` records the original source metadata, with a privacy note in place of the previous homepage commit. This snapshot captures published versions, not uncommitted local drafts.
