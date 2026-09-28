@@ -1,0 +1,87 @@
+name: Remove private contact data from history
+on:
+  push:
+    branches: [main]
+    paths: [.github/workflows/privacy-cleanup.yml]
+permissions:
+  contents: write
+  actions: write
+concurrency:
+  group: privacy-cleanup
+  cancel-in-progress: false
+jobs:
+  cleanup:
+    if: github.repository == 'heoneyzi/Portfolio-Archive'
+    runs-on: ubuntu-latest
+    timeout-minutes: 10
+    steps:
+      - uses: actions/checkout@v4
+        with:
+          fetch-depth: 0
+          ref: main
+      - name: Install history cleanup tool
+        run: python3 -m pip install git-filter-repo==2.47.0
+      - name: Remove private CV copies and phone contact, then verify every reachable revision
+        env:
+          GH_TOKEN: ${{ github.token }}
+        shell: bash
+        run: |
+          python3 - <<'PYCODE'
+          from pathlib import Path
+          import os, subprocess, hashlib, re, json, urllib.request
+
+          def git(*args):
+              return subprocess.check_output(['git',*args],text=True).strip()
+
+          expected_repo='heoneyzi/Portfolio-Archive'
+          expected_parent='9cbf1d325eef3f86ac4dc4dc7af7c09cfefbf9a2'
+          assert os.environ['GITHUB_REPOSITORY']==expected_repo
+          assert git('rev-parse','HEAD^')==expected_parent, 'Unexpected source revision; stop before rewriting'
+          old=git('rev-parse','HEAD')
+          refs=[x.split()[1] for x in git('ls-remote','origin').splitlines()]
+          assert set(refs)=={'HEAD','refs/heads/main'}, 'Additional refs need separate review'
+          before={x.split(None,3)[3]:x.split()[2] for x in git('ls-tree','-r','HEAD').splitlines()}
+          callback=Path(os.environ['RUNNER_TEMP'])/'privacy-filter.py'
+          callback.write_text('import hashlib, re, json\nsafe_pdf = \'6ba07da961cdc43c327f5ca5f5baaeb1a75e81567fbda2093d58e353ae36fa56\'\ncv_paths = (b\'Jiheon_Kang_CV.pdf\', b\'originals/heoneyzi.github.io/Jiheon_Kang_CV.pdf\')\ndata = value.get_contents_by_identifier(blob_id)\nif filename in cv_paths:\n    if filename.startswith(b\'originals/\') or hashlib.sha256(data).hexdigest() != safe_pdf:\n        return (None, mode, blob_id)\nif filename in (b\'index.html\', b\'originals/heoneyzi.github.io/index.html\'):\n    data = re.sub(br\'<a\\b[^>]*href=["\\\']tel:[^"\\\']+["\\\'][^>]*>.*?</a>\', b\'\', data, flags=re.S|re.I)\n    data = re.sub(br\'(?:\\+82[\\s.-]*10|010)[\\s.-]*\\d{4}[\\s.-]*\\d{4}\', b\'[private contact removed]\', data)\n    if filename.startswith(b\'originals/\'):\n        data = data.replace(b\'href="Jiheon_Kang_CV.pdf"\', b\'href="https://heoneyzi.github.io/Jiheon_Kang_CV.pdf"\')\nif filename == b\'inventories/heoneyzi.github.io.json\':\n    obj=json.loads(data)\n    obj.pop(\'sha\',None); obj.pop(\'url\',None)\n    obj[\'note\']=\'Historical file inventory with private CV and contact details removed. Browse originals/heoneyzi.github.io for the retained public snapshot.\'\n    obj[\'tree\']=[x for x in obj.get(\'tree\',[]) if x.get(\'path\')!=\'Jiheon_Kang_CV.pdf\']\n    for item in obj[\'tree\']:\n        if item.get(\'path\')==\'index.html\':\n            for key in (\'sha\',\'url\',\'size\'): item.pop(key,None)\n            item[\'note\']=\'Phone contact removed; CV link points to the current public web CV.\'\n    data=(json.dumps(obj,ensure_ascii=False,indent=2)+\'\\n\').encode()\nif filename == b\'manifest.json\':\n    obj=json.loads(data)\n    if isinstance(obj,list):\n        for item in obj:\n            if item.get(\'name\')==\'heoneyzi.github.io\':\n                for key in (\'sha\',\'files\',\'bytes\',\'max_size\'): item.pop(key,None)\n                item[\'privacy_note\']=\'CV omitted and phone contact removed from the public historical snapshot.\'\n        data=(json.dumps(obj,ensure_ascii=False,indent=2)+\'\\n\').encode()\nif data != value.get_contents_by_identifier(blob_id):\n    blob_id=value.insert_file_with_contents(data)\nreturn (filename, mode, blob_id)\n')
+          subprocess.run(['git','filter-repo','--force','--sensitive-data-removal','--no-fetch','--invert-paths','--path','.publication/','--file-info-callback',str(callback)],check=True)
+          after={x.split(None,3)[3]:x.split()[2] for x in git('ls-tree','-r','HEAD').splitlines()}
+          allowed={'Jiheon_Kang_CV.pdf','index.html','originals/heoneyzi.github.io/Jiheon_Kang_CV.pdf','originals/heoneyzi.github.io/index.html','manifest.json','inventories/heoneyzi.github.io.json'}
+          changed={p for p in set(before)|set(after) if before.get(p)!=after.get(p)}
+          assert changed<=allowed, f'Unexpected file changes: {changed-allowed}'
+          objects=git('rev-list','--objects','--all').splitlines()
+          for row in objects:
+              oid,_,path=row.partition(' ')
+              assert not path.startswith('.publication'), 'Historical upload payload remains'
+              if path.endswith('Jiheon_Kang_CV.pdf'):
+                  blob=subprocess.check_output(['git','cat-file','blob',oid])
+                  assert path=='Jiheon_Kang_CV.pdf'
+                  assert hashlib.sha256(blob).hexdigest()=='6ba07da961cdc43c327f5ca5f5baaeb1a75e81567fbda2093d58e353ae36fa56'
+              if path in {'index.html','originals/heoneyzi.github.io/index.html'}:
+                  blob=subprocess.check_output(['git','cat-file','blob',oid])
+                  assert not re.search(br'(?:\+82[\s.-]*10|010)[\s.-]*\d{4}[\s.-]*\d{4}',blob)
+          assert git('show-ref','--heads').splitlines().__len__()==1
+          subprocess.run(['git','push',f'--force-with-lease=refs/heads/main:{old}','origin','refs/heads/main:refs/heads/main'],check=True)
+          assert git('ls-remote','origin','refs/heads/main').split()[0]==git('rev-parse','HEAD')
+          print('History sanitized and pushed. Changed current files:',sorted(changed))
+
+          # Remove retained Pages build downloads that could contain historical CV copies.
+          headers={'Authorization':'Bearer '+os.environ['GH_TOKEN'],'Accept':'application/vnd.github+json','X-GitHub-Api-Version':'2022-11-28'}
+          def api(path,method='GET'):
+              req=urllib.request.Request('https://api.github.com/repos/'+expected_repo+path,headers=headers,method=method)
+              with urllib.request.urlopen(req) as response:
+                  data=response.read()
+                  return json.loads(data) if data else None
+          artifacts=[]
+          page=1
+          while True:
+              batch=api(f'/actions/artifacts?per_page=100&page={page}')['artifacts']
+              artifacts.extend(batch)
+              if len(batch)<100: break
+              page+=1
+          removed=0
+          for artifact in artifacts:
+              if artifact['name']=='github-pages':
+                  api('/actions/artifacts/'+str(artifact['id']),'DELETE')
+                  removed+=1
+          print('Removed retained Pages artifacts:',removed)
+          PYCODE
