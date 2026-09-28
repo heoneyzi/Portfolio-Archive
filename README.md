@@ -25,7 +25,7 @@ This is a historical snapshot, not a claim that every archived experiment is com
 
 ## Preservation notes
 
-- The 12 compact repositories are preserved under `originals/`. The previous homepage omits its private CV and phone contact; its CV link opens the current public web CV. Other source files retain their original contents.
+- The 12 compact repositories are preserved under `originals/`. The previous homepage omits its private CV and phone contact; its CV link opens the current public web CV. Korean summary sections have also been removed from Markdown documentation at the owner’s request. Other source files retain their original contents.
 - TDiG contains approximately 1.08 GB of files. Its exact commit and ZIP are linked above instead of duplicating those large files. Its file inventory is preserved in `inventories/TDiG.json`.
 - This archive does not include private repositories. Public repository URLs are retained. Histories containing private contact information have been rewritten.
 - `manifest.json` records the original source metadata, with a privacy note in place of the previous homepage commit. This snapshot captures published versions, not uncommitted local drafts.
