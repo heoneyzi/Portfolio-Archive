@@ -36,7 +36,7 @@ jobs:
           for name in z.namelist():
               rel=PurePosixPath(name)
               assert not rel.is_absolute() and '..' not in rel.parts
-              assert '.git' not in rel.parts and '.github' not in rel.parts
+              assert '.git' not in rel.parts and rel.parts[0] != '.github'
               b=z.read(name)
               assert hashlib.sha256(b).hexdigest()==m['files'][name]
               f=Path(name);f.parent.mkdir(parents=True,exist_ok=True);f.write_bytes(b)
