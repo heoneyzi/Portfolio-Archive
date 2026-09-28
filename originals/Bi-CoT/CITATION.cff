@@ -1,0 +1,15 @@
+cff-version: 1.2.0
+message: "Please cite the Bi-CoT research when discussing this archive; the release does not establish paper-exact reproducibility."
+title: "Plug-and-Play Bi-CoT: Self-Aware Forward Reasoning and Reverse Verification for Explainable Multi-Hop QA"
+authors:
+  - family-names: Kang
+    given-names: Jiheon
+  - family-names: Jeong
+    given-names: Suhwan
+type: software
+abstract: "Recovered research notebooks for dependency-aware multi-hop QA, self-aware forward reasoning, and evidence verification, with a source-derived offline answer evaluator."
+keywords:
+  - multi-hop question answering
+  - explainable AI
+  - chain of thought
+  - retrieval

@@ -1,0 +1,84 @@
+{
+  "tree": [
+    {
+      "path": ".nojekyll",
+      "mode": "100644",
+      "type": "blob",
+      "sha": "e69de29bb2d1d6434b8b29ae775ad8c2e48c5391",
+      "size": 0,
+      "url": "https://api.github.com/repos/heoneyzi/heoneyzi.github.io/git/blobs/e69de29bb2d1d6434b8b29ae775ad8c2e48c5391"
+    },
+    {
+      "path": "README.md",
+      "mode": "100644",
+      "type": "blob",
+      "sha": "f0f4d0f07d5de703a998a27fb40ec8eefe73a72c",
+      "size": 2618,
+      "url": "https://api.github.com/repos/heoneyzi/heoneyzi.github.io/git/blobs/f0f4d0f07d5de703a998a27fb40ec8eefe73a72c"
+    },
+    {
+      "path": "bi-cot-pipeline.png",
+      "mode": "100644",
+      "type": "blob",
+      "sha": "3eed673c132b44b15e7a1428cf2658330014b3c0",
+      "size": 87351,
+      "url": "https://api.github.com/repos/heoneyzi/heoneyzi.github.io/git/blobs/3eed673c132b44b15e7a1428cf2658330014b3c0"
+    },
+    {
+      "path": "favicon.svg",
+      "mode": "100644",
+      "type": "blob",
+      "sha": "bb2ddaffe8999fd94b306c0e6c1493c983c77171",
+      "size": 247,
+      "url": "https://api.github.com/repos/heoneyzi/heoneyzi.github.io/git/blobs/bb2ddaffe8999fd94b306c0e6c1493c983c77171"
+    },
+    {
+      "path": "gdtr-context-separation.png",
+      "mode": "100644",
+      "type": "blob",
+      "sha": "ae16b6c0c63eeac3f7c1554bb15e70176ae9001a",
+      "size": 105462,
+      "url": "https://api.github.com/repos/heoneyzi/heoneyzi.github.io/git/blobs/ae16b6c0c63eeac3f7c1554bb15e70176ae9001a"
+    },
+    {
+      "path": "index.html",
+      "mode": "100644",
+      "type": "blob",
+      "note": "Phone contact removed; CV link points to the current public web CV."
+    },
+    {
+      "path": "robots.txt",
+      "mode": "100644",
+      "type": "blob",
+      "sha": "fcd6f17051d4f7a6ad9ca0acc8c716701f27b8fa",
+      "size": 71,
+      "url": "https://api.github.com/repos/heoneyzi/heoneyzi.github.io/git/blobs/fcd6f17051d4f7a6ad9ca0acc8c716701f27b8fa"
+    },
+    {
+      "path": "script.js",
+      "mode": "100644",
+      "type": "blob",
+      "sha": "f9e296041987fea259dda92bdb47a146e464a898",
+      "size": 984,
+      "url": "https://api.github.com/repos/heoneyzi/heoneyzi.github.io/git/blobs/f9e296041987fea259dda92bdb47a146e464a898"
+    },
+    {
+      "path": "sitemap.xml",
+      "mode": "100644",
+      "type": "blob",
+      "sha": "3b69a9455fbb67522064ae1641e008037421b676",
+      "size": 187,
+      "url": "https://api.github.com/repos/heoneyzi/heoneyzi.github.io/git/blobs/3b69a9455fbb67522064ae1641e008037421b676"
+    },
+    {
+      "path": "styles.css",
+      "mode": "100644",
+      "type": "blob",
+      "sha": "5d7bf829359bfb558e9a1b17076995ae567e7e2a",
+      "size": 16815,
+      "url": "https://api.github.com/repos/heoneyzi/heoneyzi.github.io/git/blobs/5d7bf829359bfb558e9a1b17076995ae567e7e2a"
+    }
+  ],
+  "truncated": false,
+  "note": "Historical file inventory with private CV and contact details removed. Browse originals/heoneyzi.github.io for the retained public snapshot."
+}

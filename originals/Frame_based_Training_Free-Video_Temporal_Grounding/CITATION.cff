@@ -1,0 +1,14 @@
+cff-version: 1.2.0
+message: "Please cite the associated 2025 IEIE conference work when using this research."
+title: "Maximizing Frame-Level Video Understanding for Efficient Video Temporal Grounding"
+authors:
+  - family-names: Kang
+    given-names: Jiheon
+  - family-names: Kim
+    given-names: S.
+  - family-names: Noh
+    given-names: H.
+  - family-names: Yang
+    given-names: H.
+year: 2025
+repository-code: "https://github.com/heoneyzi/Frame_based_Training_Free-Video_Temporal_Grounding"

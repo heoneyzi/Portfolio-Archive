@@ -1,0 +1,39 @@
+# Environments and generated files
+.venv/
+venv/
+__pycache__/
+*.py[cod]
+.ipynb_checkpoints/
+.pytest_cache/
+.DS_Store
+*.log
+
+# Local configuration and credentials
+.env
+.env.*
+!.env.example
+.streamlit/secrets.toml
+*.pem
+*.key
+
+# MRI volumes, weights, exported predictions and experiment artifacts
+data/
+test_data/
+outputs/
+runs/
+checkpoints/
+*.nii
+*.nii.gz
+*.dcm
+*.pth
+*.pt
+*.ckpt
+*.npy
+*.npz
+*.pkl
+*.pickle
+*.h5
+*.hdf5
+*.zip
+*.tar
+*.tar.gz
